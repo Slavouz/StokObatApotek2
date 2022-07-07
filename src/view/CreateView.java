@@ -2,6 +2,8 @@ package view;
 
 import javax.security.sasl.Sasl;
 
+import com.mysql.cj.jdbc.result.ResultSetFactory;
+
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
@@ -9,6 +11,7 @@ import javafx.event.EventHandler;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
@@ -58,7 +61,16 @@ public class CreateView {
         Label jenis = new Label();
         jenis.setText("Masukan Jenis Obat");
         grid.add(jenis, 1, 11);
-        TextField jenisInput = new TextField();
+        ComboBox<String> jenisInput = new ComboBox<>();
+        jenisInput.getItems().addAll(
+            "Obat Bebas",
+            "Obat Bebas Terbatas",
+            "Obat Keras",
+            "Psikotropika",
+            "Narkotika",
+            "Prekusor",
+            "OOT"
+        );
         grid.add(jenisInput, 1, 12);
 
         // Satuan
@@ -167,7 +179,7 @@ public class CreateView {
         buat.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent e) {
-
+                System.out.println(jenisInput.getValue());
             }
         });
 
@@ -180,7 +192,7 @@ public class CreateView {
                 namaBarangInput.clear();
                 noBatchInput.clear();
                 PBFInput.clear();
-                jenisInput.clear();
+                jenisInput.setValue(null);
                 satuanInput.clear();
                 jumlahInput.clear();
                 tglMasukInput.setValue(null);
