@@ -7,7 +7,7 @@ AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
 Depression ```major depressive disorder``` is a common and serious medical illness that negatively affects how you feel, the way you think and how you act. Fortunately, it is also treatable. Depression causes feelings of sadness and/or a loss of interest in activities you once enjoyed. It can lead to a variety of emotional and physical problems and can decrease your ability to function at work and at home.
 
 ## Why are we Depressed
-because we get a scientific writing course whose lecturers are fussy and difficult to get access from, we don't know how to write it properly. as well as the title we have to design an application that is not necessarily completed in one week.
+Because we get a scientific writing course whose lecturers are fussy and difficult to get access from, we don't know how to write it properly. as well as the title we have to design an application that is not necessarily completed in one week.
 
-
-
+## How's the project owner?
+He has no college circle and it makes him depressed even more. Either introvert or social distrust. When he had a chance, he flees into container cafe (...or should I say, He's doing Avoidant Coping), cowering in shame, to be a weenie, to cry in a silent. He just doesn't want to be everyone's enemy.
