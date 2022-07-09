@@ -11,8 +11,3 @@ Because we get a scientific writing course whose lecturers are fussy and difficu
 
 ## How's the project owner?
 He has no college circle and it makes him depressed even more. Either introvert or social distrust. When he had a chance, he flees into container cafe (...or should I say, He's doing Avoidant Coping), cowering in shame, to be a weenie, to cry in a silent. He just doesn't want to be everyone's enemy.
-
-*See? They don't even care!*
-Yes.
-Thanks for reading.
-I hope you guys live a happy life.
