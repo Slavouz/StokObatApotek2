@@ -4,6 +4,7 @@ import javax.security.sasl.Sasl;
 
 import com.mysql.cj.jdbc.result.ResultSetFactory;
 
+import controller.StokObatController;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
@@ -179,7 +180,48 @@ public class CreateView {
         buat.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent e) {
-                System.out.println(jenisInput.getValue());
+                if(namaBarangInput.getText().isEmpty()){
+                    System.out.println("namaBarangInput");
+                }
+                else if(noBatchInput.getText().isEmpty()){
+                    System.out.println("noBatchInput");
+                }
+                else if(PBFInput.getText().isEmpty()){
+                    System.out.println("PBFInput");
+                }
+                else if(jenisInput.getValue() == null){
+                    System.out.println("jenisInput");
+                }
+                else if(satuanInput.getText().isEmpty()){
+                    System.out.println("satuanInput");
+                }
+                else if(jumlahInput.getText().isEmpty()){
+                    System.out.println("jumlahInput");
+                }
+                else if(tglMasukInput.getValue() == null){
+                    System.out.println("tglMasukInput");
+                }
+                else if(tglKeluarInput.getValue() == null){
+                    System.out.println("tglKeluarInput");
+                }
+                else if(expInput.getValue() == null){
+                    System.out.println("expInput");
+                }
+                else if(harga1Input.getText().isEmpty()){
+                    System.out.println("harga1Input");
+                }
+                else if(harga2Input.getText().isEmpty()){
+                    System.out.println("harga2Input");
+                }
+                else if(diskonInput.getText().isEmpty()){
+                    System.out.println("diskonInput");
+                }
+                else{
+                    StokObatController create = new StokObatController();
+                    // create.createController(namaBarangInput.getText(), Integer.parseInt(noBatchInput.getText()), PBFInput.getText(), jenisInput.getValue(), Integer.parseInt(satuanInput.getText()), Integer.parseInt(jumlahInput.getText()), ""+tglMasukInput.getValue(), ""+tglKeluarInput.getValue(), ""+expInput.getValue(), Integer.parseInt(harga1.getText()), Integer.parseInt(harga2Input.getText()), Integer.parseInt(diskonInput.getText()));
+                    create.createController("namaBarang", 1, "pbf", "jenis", 1, 1, "tglMsk", "tglKlr", "exp", 1, 1, 1);
+                    stage.close();
+                }
             }
         });
 
