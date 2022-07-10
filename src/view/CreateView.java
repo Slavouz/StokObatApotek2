@@ -218,8 +218,19 @@ public class CreateView {
                 }
                 else{
                     StokObatController create = new StokObatController();
-                    // create.createController(namaBarangInput.getText(), Integer.parseInt(noBatchInput.getText()), PBFInput.getText(), jenisInput.getValue(), Integer.parseInt(satuanInput.getText()), Integer.parseInt(jumlahInput.getText()), ""+tglMasukInput.getValue(), ""+tglKeluarInput.getValue(), ""+expInput.getValue(), Integer.parseInt(harga1.getText()), Integer.parseInt(harga2Input.getText()), Integer.parseInt(diskonInput.getText()));
-                    create.createController("namaBarang", 1, "pbf", "jenis", 1, 1, "tglMsk", "tglKlr", "exp", 1, 1, 1);
+                    create.createController(
+                        namaBarangInput.getText(), 
+                        Integer.parseInt(noBatchInput.getText()), 
+                        PBFInput.getText(), jenisInput.getValue(), 
+                        Integer.parseInt(satuanInput.getText()), 
+                        Integer.parseInt(jumlahInput.getText()), 
+                        ""+tglMasukInput.getValue(), 
+                        ""+tglKeluarInput.getValue(), 
+                        ""+expInput.getValue(), 
+                        Integer.parseInt(harga1Input.getText()), 
+                        Integer.parseInt(harga2Input.getText()), 
+                        Integer.parseInt(diskonInput.getText())
+                    );
                     stage.close();
                 }
             }

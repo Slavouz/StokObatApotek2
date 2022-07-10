@@ -16,15 +16,15 @@ public class App extends Application{
     @Override
     public void start(Stage arg0) throws Exception {
         
-        String sql = "SELECT * FROM stok_obat";
-        Connect con = new Connect();
-        Statement stat = con.connection();
-        ResultSet res = stat.executeQuery(sql);
+        // String sql = "SELECT * FROM stok_obat";
+        // Connect con = new Connect();
+        // Statement stat = con.connection();
+        // ResultSet res = stat.executeQuery(sql);
 
-        while(res.next()){
-            System.out.println("Nomor = "+res.getString("no"));
-            System.out.println("Nama Barang = "+res.getString("nama_barang"));
-        }
+        // while(res.next()){
+        //     System.out.println("Nomor = "+res.getString("no"));
+        //     System.out.println("Nama Barang = "+res.getString("nama_barang"));
+        // }
 
         TabelView test2 = new TabelView();
         test2.tabelView();
