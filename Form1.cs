@@ -1,8 +1,8 @@
 namespace PharmAssist
 {
-    public partial class Form1 : Form
+    public partial class PharmAssist : Form
     {
-        public Form1()
+        public PharmAssist()
         {
             InitializeComponent();
         }
