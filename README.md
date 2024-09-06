@@ -1,5 +1,3 @@
-# Inactive, please refer to dotnet branch
-
 # StokObatApotek
 
 ## Deskripsi
