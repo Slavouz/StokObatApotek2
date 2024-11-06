@@ -221,4 +221,13 @@ public class model_tabel implements controller_tabel {
         }
         tb.table.setItems(data);
     }
+    
+    public void clearTb(tabel tb) throws SQLException {
+        ObservableList<StokObat> data = tb.data;
+        String sql = "SELECT * FROM stok_obat";
+        Connection conn = koneksi.koneksi.koneksiDB();
+        PreparedStatement pst = conn.prepareStatement(sql);
+        ResultSet rs = pst.executeQuery();
+        tb.table.getItems().clear();
+    }
 }

@@ -34,10 +34,8 @@ import model.model_tabel.StokObat;
  *
  * @author davinky
  */
+public class tabel extends Application {
 
-
-public class tabel extends Application {    
-    
     model_tabel mt = new model_tabel();
     public ObservableList<StokObat> data = FXCollections.observableArrayList();
     public TableView table = new TableView();
@@ -59,6 +57,7 @@ public class tabel extends Application {
         table.setEditable(true);
 
         Button refBtn = new Button("Refresh");
+        Button searchBtn = new Button("Search");
         Button tambahBtn = new Button("Tambah");
         Button updateBtn = new Button("Ubah");
         Button hapusBtn = new Button("Hapus");
@@ -80,7 +79,7 @@ public class tabel extends Application {
         table.getColumns().addAll(idC, namaBarangC, noBatchC, pbfC, jenisC, satuanC, stokC, tglMskC, tglKlrC, expC, harga1C, harga2C, diskonC);
         final VBox vbox = new VBox();
         final HBox hbox = new HBox();
-        final VBox tbox = new VBox();
+        final HBox tbox = new HBox();
         vbox.setSpacing(8);
         hbox.setSpacing(8);
         tbox.setSpacing(8);
@@ -88,8 +87,12 @@ public class tabel extends Application {
         hbox.setPadding(new Insets(5, 10, 10, 10));
         tbox.setPadding(new Insets(5, 0, 10, 10));
         hbox.setAlignment(Pos.CENTER);
-        tbox.setAlignment(Pos.CENTER_RIGHT);
-        tbox.getChildren().add(refBtn);
+        tbox.setAlignment(Pos.CENTER_LEFT);
+        TextField search = new TextField();
+        search.setPadding(new Insets(5, 0, 10, 10));
+        String searchStock = "";
+        search.setText(searchStock);
+        tbox.getChildren().addAll(search, searchBtn, refBtn);
         hbox.getChildren().addAll(tambahBtn, updateBtn, hapusBtn);
         vbox.getChildren().addAll(tbox, table, hbox);
         ((Group) scene.getRoot()).getChildren().addAll(vbox);
@@ -148,6 +151,35 @@ public class tabel extends Application {
         diskonC.setCellValueFactory(new PropertyValueFactory<StokObat, String>("diskon")
         );
         table.setItems(data);
+
+        searchBtn.setOnAction((ActionEvent e) -> {
+            String sqlSearch = "SELECT * from stok_obat WHERE nama_barang LIKE '%" + search.getText() + "%'";
+            try {
+                Connection conn = koneksi.koneksiDB();
+                PreparedStatement pst = conn.prepareStatement(sqlSearch);
+                ResultSet rs = pst.executeQuery();
+                mt.clearTb(this);
+                while (rs.next()) {
+                    int id = rs.getInt("no");
+                    String namaBarang = rs.getString("nama_barang");
+                    String noBatch = rs.getString("no_batch");
+                    String pbf = rs.getString("PBF");
+                    String jenis = rs.getString("jenis");
+                    int satuan = rs.getInt("satuan");
+                    int stok = rs.getInt("jumlah_stok");
+                    String tglMsk = rs.getString("tgl_msk");
+                    String tglKlr = rs.getString("tgl_klr");
+                    String exp = rs.getString("exp");
+                    int harga1 = rs.getInt("harga1");
+                    int harga2 = rs.getInt("harga2");
+                    int diskon = rs.getInt("diskon");
+                    StokObat so = new StokObat(String.valueOf(id), namaBarang, noBatch, pbf, jenis, satuan, stok, tglMsk, tglKlr, exp, harga1, harga2, diskon);
+                    data.add(so);
+                }
+            } catch (SQLException ex) {
+                System.out.println("Error");
+            }
+        });
 
         tambahBtn.setOnAction((ActionEvent e) -> {
             Stage stage2 = new Stage();
@@ -299,7 +331,7 @@ public class tabel extends Application {
                     int dsc = Integer.parseInt(diskonInput.getText());
                     try {
                         String sqlT = "INSERT INTO stok_obat (nama_barang, no_batch, PBF, jenis, satuan, jumlah_stok, tgl_msk, tgl_klr, exp, harga1, harga2, diskon) "
-                                + "VALUES ('" + nB + "',  '" + noB + "', '" + pbf + "', '" + jns + "', '" + stn + "', '" + jml + "', '" + tglM + "', '" + tglK + "', '" 
+                                + "VALUES ('" + nB + "',  '" + noB + "', '" + pbf + "', '" + jns + "', '" + stn + "', '" + jml + "', '" + tglM + "', '" + tglK + "', '"
                                 + expd + "', '" + h1 + "', '" + h2 + "', '" + dsc + "')";
                         Connection conn = koneksi.koneksiDB();
                         PreparedStatement pst = conn.prepareStatement(sqlT);
