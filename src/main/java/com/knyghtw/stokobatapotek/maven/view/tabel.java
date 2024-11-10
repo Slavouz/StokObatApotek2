@@ -44,8 +44,7 @@ public class tabel extends Application {
 
     @Override
     public void start(Stage stage) {
-        Scene scene = new Scene(new Group());
-        ObservableList<StokObat> data = FXCollections.observableArrayList();
+        Scene scene = new Scene(new Group());        
         try {
             koneksi.koneksiDB();
             System.out.println("Berhasil terkoneksi");
@@ -158,25 +157,23 @@ public class tabel extends Application {
         table.setItems(data);
         
         
-        EventHandler<ActionEvent> event = new EventHandler<ActionEvent>() {
-            public void handle(ActionEvent e) {
-                switch (combo_box.getValue().toString()) {
-                    case "Nama Barang":
-                        selectedSearchType = "nama_barang";                        
-                        break;
-                    case "No. Batch":
-                        selectedSearchType = "no_batch";                        
-                        break;
-                    case "Jenis":
-                        selectedSearchType = "jenis";                        
-                        break;
-                    case "Exp. Date":
-                        selectedSearchType = "exp";                        
-                        break;
-                    default:
-                        selectedSearchType = "nama_barang";                        
-                        break;
-                }                
+        EventHandler<ActionEvent> event = (ActionEvent e) -> {
+            switch (combo_box.getValue().toString()) {
+                case "Nama Barang":
+                    selectedSearchType = "nama_barang";
+                    break;
+                case "No. Batch":
+                    selectedSearchType = "no_batch";
+                    break;
+                case "Jenis":
+                    selectedSearchType = "jenis";
+                    break;
+                case "Exp. Date":
+                    selectedSearchType = "exp";
+                    break;
+                default:
+                    selectedSearchType = "nama_barang";
+                    break;                
             }
         };
         
@@ -184,6 +181,7 @@ public class tabel extends Application {
 
         searchBtn.setOnAction((ActionEvent e) -> {
             String sqlSearch = "SELECT * from stok_obat WHERE " + selectedSearchType + " LIKE '%" + search.getText() + "%'";
+            System.out.println(sqlSearch);
             try {
                 Connection conn = koneksi.koneksiDB();
                 PreparedStatement pst = conn.prepareStatement(sqlSearch);
@@ -206,6 +204,7 @@ public class tabel extends Application {
                     StokObat so = new StokObat(String.valueOf(id), namaBarang, noBatch, pbf, jenis, satuan, stok, tglMsk, tglKlr, exp, harga1, harga2, diskon);
                     data.add(so);
                 }
+                
             } catch (SQLException ex) {
                 System.out.println("Error");
             }
@@ -345,6 +344,11 @@ public class tabel extends Application {
                     Alert em = new Alert(Alert.AlertType.ERROR);
                     em.setTitle("ERROR");
                     em.setHeaderText("Inputan tidak boleh kosong");
+                    em.show();
+                } else if (namaBarangInput.getText().length() > 20 || noBatchInput.getText().length() > 25) {
+                    Alert em = new Alert(Alert.AlertType.ERROR);
+                    em.setTitle("ERROR");
+                    em.setHeaderText("Inputan melebihi batas");
                     em.show();
                 } else {
                     String nB = namaBarangInput.getText();

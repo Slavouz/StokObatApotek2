@@ -18,7 +18,6 @@ import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 import com.knyghtw.stokobatapotek.maven.koneksi.koneksi;
 
-
 /**
  * JavaFX App
  */
@@ -53,35 +52,42 @@ public class App extends Application {
             String usr = userNameInput.getText();
             String pwd = passWordInput.getText();
 
-            try {
-                String sql = "SELECT * FROM admin WHERE username == '" + usr + "' AND password = '" + pwd + "'";
-                Connection conn = koneksi.koneksiDB();
-                PreparedStatement pst = conn.prepareStatement(sql);
-                ResultSet rs = pst.executeQuery();
-                
-                if (rs.next()) {
-                    Alert s = new Alert(Alert.AlertType.INFORMATION);
-                    s.setTitle("Berhasil");
-                    s.setHeaderText("Login Berhasil");
-                    s.showAndWait();                    
-                    
-                    Stage curStage = (Stage) login.getScene().getWindow();
-                    curStage.close();
-                    
-                    tabel tabelStage = new tabel();
-                    tabelStage.start(new Stage());
-                } else {
-                    Alert s = new Alert(Alert.AlertType.ERROR);
-                    s.setTitle("Gagal");
-                    s.setHeaderText("Login Gagal");
-                    s.show();                    
-                }                               
-            } catch (SQLException ex) {
-                System.out.println(ex);
+            if (usr.length() < 5 || usr.length() > 20 || pwd.length() < 8 || pwd.length() > 16) {
                 Alert s = new Alert(Alert.AlertType.ERROR);
-                s.setTitle("ERROR");
-                s.setHeaderText("Error: " + ex);
+                s.setTitle("Gagal");
+                s.setHeaderText("Username / Password Salah");
                 s.show();
+            } else {
+                try {
+                    String sql = "SELECT * FROM admin WHERE username == '" + usr + "' AND password = '" + pwd + "'";
+                    Connection conn = koneksi.koneksiDB();
+                    PreparedStatement pst = conn.prepareStatement(sql);
+                    ResultSet rs = pst.executeQuery();
+
+                    if (rs.next()) {
+                        Alert s = new Alert(Alert.AlertType.INFORMATION);
+                        s.setTitle("Berhasil");
+                        s.setHeaderText("Login Berhasil");
+                        s.showAndWait();
+
+                        Stage curStage = (Stage) login.getScene().getWindow();
+                        curStage.close();
+
+                        tabel tabelStage = new tabel();
+                        tabelStage.start(new Stage());
+                    } else {
+                        Alert s = new Alert(Alert.AlertType.ERROR);
+                        s.setTitle("Gagal");
+                        s.setHeaderText("Username / Password Salah");
+                        s.show();
+                    }
+                } catch (SQLException ex) {
+                    System.out.println(ex);
+                    Alert s = new Alert(Alert.AlertType.ERROR);
+                    s.setTitle("ERROR");
+                    s.setHeaderText("Error: " + ex);
+                    s.show();
+                }
             }
         });
         grid.add(login, 0, 4);

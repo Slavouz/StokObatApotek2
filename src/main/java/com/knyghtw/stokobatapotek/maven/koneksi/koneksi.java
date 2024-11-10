@@ -15,9 +15,8 @@ public class koneksi {
 
     public static Connection koneksiDB() throws SQLException {
         if (connect == null) {
-            try {
-                String projectDir = System.getProperty("user.dir");
-                String url = "jdbc:sqlite:" + projectDir + "\\src\\main\\java\\com\\knyghtw\\stokobatapotek\\maven\\db\\apotek.db";
+            try {                
+                String url = "jdbc:sqlite:" + System.getProperty("user.dir") + "\\src\\main\\java\\com\\knyghtw\\stokobatapotek\\maven\\db\\apotek.db";
                 connect = DriverManager.getConnection(url);
                 System.out.println("Koneksi sukses");
             } catch (SQLException e) {
