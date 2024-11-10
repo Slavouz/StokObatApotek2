@@ -11,6 +11,7 @@ import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Group;
@@ -39,6 +40,7 @@ public class tabel extends Application {
     model_tabel mt = new model_tabel();
     public ObservableList<StokObat> data = FXCollections.observableArrayList();
     public TableView table = new TableView();
+    String selectedSearchType = "nama_barang";
 
     @Override
     public void start(Stage stage) {
@@ -61,6 +63,9 @@ public class tabel extends Application {
         Button tambahBtn = new Button("Tambah");
         Button updateBtn = new Button("Ubah");
         Button hapusBtn = new Button("Hapus");
+        String search_type[] = {"Nama Barang", "No. Batch", "Jenis", "Exp. Date"};
+        ComboBox combo_box = new ComboBox(FXCollections.observableArrayList(search_type));
+        combo_box.setValue("Nama Barang");
 
         TableColumn idC = new TableColumn("No.");
         TableColumn namaBarangC = new TableColumn("Nama Barang");
@@ -85,17 +90,17 @@ public class tabel extends Application {
         tbox.setSpacing(8);
         vbox.setPadding(new Insets(10, 10, 10, 10));
         hbox.setPadding(new Insets(5, 10, 10, 10));
-        tbox.setPadding(new Insets(5, 0, 10, 10));
+        tbox.setPadding(new Insets(10, 0, 10, 10));
         hbox.setAlignment(Pos.CENTER);
         tbox.setAlignment(Pos.CENTER_LEFT);
         TextField search = new TextField();
-        search.setPadding(new Insets(5, 0, 10, 10));
+        
         String searchStock = "";
         search.setText(searchStock);
-        tbox.getChildren().addAll(search, searchBtn, refBtn);
-        hbox.getChildren().addAll(tambahBtn, updateBtn, hapusBtn);
-        vbox.getChildren().addAll(tbox, table, hbox);
-        ((Group) scene.getRoot()).getChildren().addAll(vbox);
+        tbox.getChildren().addAll(combo_box, search, searchBtn, refBtn);
+        hbox.getChildren().addAll(tambahBtn, updateBtn, hapusBtn);        
+        vbox.getChildren().addAll(tbox, table, hbox);                
+        ((Group) scene.getRoot()).getChildren().addAll(vbox);                        
 
         try {
             String sql = "SELECT * from stok_obat";
@@ -151,9 +156,34 @@ public class tabel extends Application {
         diskonC.setCellValueFactory(new PropertyValueFactory<StokObat, String>("diskon")
         );
         table.setItems(data);
+        
+        
+        EventHandler<ActionEvent> event = new EventHandler<ActionEvent>() {
+            public void handle(ActionEvent e) {
+                switch (combo_box.getValue().toString()) {
+                    case "Nama Barang":
+                        selectedSearchType = "nama_barang";                        
+                        break;
+                    case "No. Batch":
+                        selectedSearchType = "no_batch";                        
+                        break;
+                    case "Jenis":
+                        selectedSearchType = "jenis";                        
+                        break;
+                    case "Exp. Date":
+                        selectedSearchType = "exp";                        
+                        break;
+                    default:
+                        selectedSearchType = "nama_barang";                        
+                        break;
+                }                
+            }
+        };
+        
+        combo_box.setOnAction(event);
 
         searchBtn.setOnAction((ActionEvent e) -> {
-            String sqlSearch = "SELECT * from stok_obat WHERE nama_barang LIKE '%" + search.getText() + "%'";
+            String sqlSearch = "SELECT * from stok_obat WHERE " + selectedSearchType + " LIKE '%" + search.getText() + "%'";
             try {
                 Connection conn = koneksi.koneksiDB();
                 PreparedStatement pst = conn.prepareStatement(sqlSearch);
